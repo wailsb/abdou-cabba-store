@@ -1,4 +1,8 @@
+"use client"
 import type { Metadata } from "next";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/app/Components/ACSidebar"
+
 import localFont from "next/font/local";
 import "./globals.css";
 import Nav from "./Components/Nav";
@@ -14,10 +18,6 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-export const metadata: Metadata = {
-  title: "ACS",
-  description: "Abdou Cabba Store",
-};
 
 export default function RootLayout({
   children,
@@ -29,8 +29,18 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         cz-shortcut-listen="true"
       >
-        <Nav/>
-        {children}
+        
+        <SidebarProvider>
+          <AppSidebar/>
+          
+          <main className="w-full">
+            
+            <Nav>  
+                <SidebarTrigger className="bg-transparent text-white p-5 rounded-lg hover:bg-white hover:text-black transition"/>
+            </Nav>
+            {children}
+          </main>
+        </SidebarProvider>
       </body>
     </html>
   
